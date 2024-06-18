@@ -17,12 +17,12 @@ The Senior Citizen Information Management System (SCIMS) is a web-based applicat
 - **Dynamic Posting**: Allows OSCA administrators to post announcements directly to the OSCA Facebook page.
 - **Announcements Module**: Enables OSCA admin to post announcements within the system, which are accessible to office staff.
 
-### Constituents Logs and Reports
-- **Modification Logs**: Tracks who modified records.
-- **Report Logs**: Records users who generate reports.
+### History Logs
+- **History Logs**: Tracks who modified records.
+- **Export Logs**: Records users who generate/export reports.
 
 ### Data Management
-- **Constituents Information**: Functionality to add, update, and search for senior citizens' and barangays' information.
+- **Constituents Information**: Functionality to add, update, and search for senior citizens.'
 - **Event Scheduling**: Integrates a calendar for scheduling events and posting announcements.
 
 ### User and Account Management
