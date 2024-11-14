@@ -62,5 +62,55 @@
                     <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">Search</button>
                 </div>
             </div>
+
+            <!--Table -->
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse">
+                    <thead class="bg-gray-200 text-gray-700">
+                        <tr class="border-b border-gray-300">
+                            <th class="border p-3 text-left">PR No.</th>
+                            <th class="border p-3 text-left">Purpose</th>
+                            <th class="border p-3 text-left">Approver</th>
+                            <th class="border p-3 text-left">Date Submitted</th>
+                            <th class="border p-3 text-left">Status</th>
+                            <th class="border p-3 text-left">PR Process</th>
+                            <th class="border p-3 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="even:bg-gray-50 hover:bg-gray-200 transition-colors duration-200 border-b border-gray-300">
+                            <td class="border p-3">Lorem</td>
+                            <td class="border p-3">Lorem</td>
+                            <td class="border p-3">Lorem</td>
+                            <td class="border p-3">Lorem</td>
+                            <td class="border p-3">Lorem</td>
+                            <td class="border p-3"></td>
+                            <td class="border p-3 text-center space-x-3">
+                                <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-download"></i></button>
+                                <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-eye-fill"></i></button>
+                                <button class="text-blue-500 hover:text-blue-600"><i class="fas fa-edit"></i></button>
+                                <button class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Save Button -->
+            <div class="flex justify-center mt-6">
+                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+   
+
+    <!-- Bootstrap JS for Modal Functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
