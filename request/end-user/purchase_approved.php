@@ -95,6 +95,56 @@
 
         </div>
     </div>
-    
+     <!-- Modal -->
+    <div class="modal fade" id="addFormModal" tabindex="-1" aria-labelledby="addFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="addFormModalLabel">Create PR</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addItemForm">
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Department:</label>
+                            <input type="text" class="form-control" id="department" name="department" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="section" class="form-label">Section:</label>
+                            <textarea class="form-control" id="section" name="section" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemDescription" class="form-label">Item Description:</label>
+                            <input type="text" class="form-control" id="itemDescription" name="itemDescription" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="quantity" class="form-label">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="unitCost" class="form-label">Unit Cost:</label>
+                            <input type="number" class="form-control" id="unitCost" name="unitCost" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalCost" class="form-label">Total Cost:</label>
+                            <input type="number" class="form-control" id="totalCost" name="totalCost" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="purpose" class="form-label">Purpose:</label>
+                            <input type="text" class="form-control" id="purpose" name="purpose" required>
+                        </div>
+                    </form>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismissd="modal">Close</button> 
+                        <button type="submit" form="addItemForrm" class="btn btn-primary">Save</button> 
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS for Modal Functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
