@@ -46,7 +46,7 @@
 
 
             <!-- Stats Card Section -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
                 <!-- Total Number Card -->
                 <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg text-white">
                     <p class="text-sm font-medium text-indigo-100">Total Number</p>
@@ -54,9 +54,10 @@
                 </div>
             </div>
 
+            <!-- Search and Add New Item Section -->
             <div class="flex justify-between mb-6 flex-wrap md:flex-nowrap">
                 <div class="flex items-center space-x-2 ml-auto w-full md:w-auto">
-                    <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" data-bs-toggl="modal" data-bs-target="#addFormModal">
+                    <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" data-bs-toggle="modal" data-bs-target="#addFormModal">
                         <i class="fas fa-plus-circle mr-2"></i> Add 
                     </button>
                     <input type="text" class="px-4 py-2 w-full md:w-96 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search...">
@@ -68,7 +69,7 @@
             <div class="overflow-x-auto mb-6">
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-200 text-gray-700">
-                        <tr class="border-b border-gray-300">>
+                        <tr class="border-b border-gray-300">
                             <th class="border p-3 text-left">PR No.</th>
                             <th class="border p-3 text-left">Purpose</th>
                             <th class="border p-3 text-left">Approver</th>
@@ -90,7 +91,7 @@
                                 <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-download"></i></button>
                                 <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-eye-fill"></i></button>
                                 <button class="text-blue-500 hover:text-blue-600"><i class="fas fa-edit"></i></button>
-                                <button class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"><//i></button>
+                                <button class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -126,7 +127,7 @@
                             <textarea class="form-control" id="section" name="section" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="itemDeeescription" class="form-label">Item Description:</label>
+                            <label for="itemDescription" class="form-label">Item Description:</label>
                             <input type="text" class="form-control" id="itemDescription" name="itemDescription" required>
                         </div>
                         <div class="mb-3">
@@ -144,6 +145,7 @@
                         <div class="mb-3">
                             <label for="purpose" class="form-label">Purpose:</label>
                             <input type="text" class="form-control" id="purpose" name="purpose" required>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
