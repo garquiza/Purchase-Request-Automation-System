@@ -56,11 +56,100 @@
                         </div>
                     </form>
                 </div>
+
+                <!-- Change Password Section -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Change Password</h2>
+                    <form action="#" method="POST">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="current_password" class="block text-sm font-medium text-gray-700">Current
+                                    Password</label>
+                                <input type="password" id="current_password" name="current_password"
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label for="new_password" class="block text-sm font-medium text-gray-700">New Password</label>
+                                <input type="password" id="new_password" name="new_password"
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm New
+                                Password</label>
+                            <input type="password" id="confirm_password" name="confirm_password"
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit"
+                                class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Change
+                                Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Signature Section -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Signature</h2>
+                    <p class="text-sm text-gray-500 mb-4">Please provide your signature below:</p>
+
+                    <!-- Canvas for Signature -->
+                    <div class="relative w-full mb-4">
+                        <canvas id="signature-pad" class="border border-gray-300 w-full h-48 rounded-md"></canvas>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <!-- Clear Button -->
+                        <button id="clear"
+                            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none">Clear</button>
+
+                        <!-- Save Button -->
+                        <button id="save"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none">Save
+                            Signature</button>
+                    </div>
+
+                    <input type="hidden" id="signature-data" name="signature_data">
+                </div>
+
             </div>
         </div>
     </div>
 
+    <script>
+        const canvas = document.getElementById('signature-pad');
+        const signaturePad = new SignaturePad(canvas);
 
+        function resizeCanvas() {
+            const ratio =  window.devicePixelRatio || 1;
+            const width = canvas.offsetWidth * ratio;
+            const height = canvas.offsetHeight * ratio;
+
+            canvas.width = width;
+            canvas.height = height;
+            signaturePad.clear(); 
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); 
+
+        document.getElementById('clear').addEventListener('click', function () {
+            signaturePad.clear();
+        });
+
+
+        document.getElementById('save').addEventListener('click', function () {
+            if (!signaturePad.isEmpty()) {
+                const dataUrl = signaturePad.toDataURL(); 
+                document.getElementById('signature-data').value = dataUrl; 
+                alert('Signature saved!');
+            } else {
+                alert('Please provide a signature!');
+            }
+        });
+    </script>
 
 </body>
 
