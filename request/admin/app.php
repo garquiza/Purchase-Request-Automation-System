@@ -113,10 +113,29 @@
                             <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
                             <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
                             <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
+
+                            <!-- Edit Icon -->
+                            <td class="border border-gray-300 p-3 text-center space-x-3">
+                                <!-- Edit Icon -->
+                                <button class="text-blue-500 hover:text-blue-600">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+
+                                <!-- Delete Icon -->
+                                <button class="text-red-500 hover:text-red-600">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
               
+            </div>
+            <div class="flex justify-center mt-6">
+                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+                    <i class="fas fa-save"></i> Save
+                </button>
             </div>
 
     </div>
