@@ -43,3 +43,84 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Procurement Plan Table -->
+            <div class="overflow-x-auto bg-white shadow-sm rounded-lg">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead class="bg-gray-200 text-gray-700">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left">CODE (PAP)</th>
+                            <th class="border border-gray-300 p-3 text-left">PROCUREMENT PROJECT</th>
+                            <th class="border border-gray-300 p-3 text-left">PMO/End-User</th>
+                            <th class="border border-gray-300 p-3 text-left">Early Procurement Activity?</th>
+                            <th class="border border-gray-300 p-3 text-left">MODE OF PROCUREMENT</th>
+                            <th colspan="4" class="border border-gray-300 p-3 text-center">PROCUREMENT ACTIVITY SCHEDULE</th>
+                            <th class="border border-gray-300 p-3 text-left">Source Funds</th>
+                            <th colspan="3" class="border border-gray-300 p-3 text-center">Estimated Budget (PHP)</th>
+                            <th class="border border-gray-300 p-3 text-left">Remarks (Brief Description of Project)</th>
+                            <th class="border border-gray-300 p-3 text-left">Action</th>
+                        </tr>
+                        <tr class="bg-gray-100 text-gray-600">
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2">Posting of IB/REI</th>
+                            <th class="border border-gray-300 p-2">Opening of Bids</th>
+                            <th class="border border-gray-300 p-2">Notice of Award</th>
+                            <th class="border border-gray-300 p-2">Contract Signing</th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2">Total</th>
+                            <th class="border border-gray-300 p-2">MOOE</th>
+                            <th class="border border-gray-300 p-2">CO</th>
+                            <th class="border border-gray-300 p-2"></th>
+                            <th class="border border-gray-300 p-2"></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr class="even:bg-gray-50 hover:bg-gray-200 transition-colors duration-200">
+                            <td class="border border-gray-300 p-3">APP</td>
+                            <td class="border border-gray-300 p-3">Project 1</td>
+                            <td class="border border-gray-300 p-3">...</td>
+                            <td class="border border-gray-300 p-3 text-center">
+                                <button class="text-green-500 hover:text-green-600">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="text-red-500 hover:text-red-600 ml-2">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                <input type="date" class="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                <input type="date" class="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                <input type="date" class="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                <input type="date" class="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                <input type="date" class="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            </td>
+                 
+                            <td class="border border-gray-300 p-3 text-center">₱500,000</td>
+                            <td class="border border-gray-300 p-3 text-center">₱500,000</td>
+                            <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
+                            <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
+                            <td class="border border-gray-300 p-3">This is a sample project for procurement.</td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+            </div>
+
+    </div>
+   
+</body>
+
+</html>
