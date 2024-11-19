@@ -130,5 +130,17 @@
             </div>
         </div>
     </div>
+
+<!-- Modal -->
+<div x-data="{ open: false }" @keydown.window="if (event.key === 'Escape') open = false" x-show="open" x-transition.duration.300ms class="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-75">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-96">
+        <h2 class="text-2xl font-semibold mb-4">Procurement Project Details</h2>
+        <p>Additional details and content for the selected project will appear here.</p>
+        <div class="flex justify-end mt-4">
+            <button @click="open = false" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
