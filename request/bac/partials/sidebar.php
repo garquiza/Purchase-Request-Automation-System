@@ -54,7 +54,7 @@
 <div class="top-right-icons">
     <a href="./Notification.php"><i class="bi bi-bell-fill"></i></a>
     <a href="./settings.php"><i class="bi bi-person-circle"></i></a>
-    <h2>Carl Manahan</h2>
+    <h2>John Doe</h2>
     <img src="" alt="profile-image">
 </div>
 
