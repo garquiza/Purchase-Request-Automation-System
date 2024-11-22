@@ -49,6 +49,56 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Dropdown List -->
+                <div class="mb-6">
+                    <label for="dropdown_list" class="block text-gray-700 font-medium">MOOE</label>
+                    <select id="dropdown_list" name="procurement_category" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="category_1">Lorem</option>
+                        <option value="category_2">Lorem</option>
+                        <option value="category_3">Lorem</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="project_title" class="block text-gray-700 font-medium">CO</label>
+                    <input type="text" id="co" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+
+                <!-- Signature Button -->
+                <div class="mb-6">
+                    <button type="button" class="bg-blue-600 text-white py-3 px-8 rounded-md shadow-lg hover:bg-blue-700 transition duration-300" data-bs-toggle="modal" data-bs-target="#signatureModal">
+                        Add Signature
+                    </button>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-600 text-white py-3 px-8 rounded-md shadow-lg hover:bg-blue-700 transition duration-300">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signature Modal -->
+    <div class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signatureModalLabel">Add Your Signature</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Use the field below to add your signature:</p>
+                    <textarea class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5" placeholder="Draw or type your signature here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-md" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="bg-blue-600 text-white py-2 px-4 rounded-md">Save Signature</button>
+                </div>
+            </div>
+        </div>
+    </div>
                 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
