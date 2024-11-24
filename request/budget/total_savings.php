@@ -40,5 +40,28 @@
                     <td class="px-4 py-2 font-semibold">50,000</td>
                 </tr>
             </table>
+
+            <!-- Pie Chart -->
+            <div class="mt-6">
+                <canvas id="savingsPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const savingsData = {
+            labels: ["COS", "CLA", "CAFA", "CIT", "COE", "CIE"],
+            datasets: [{
+                data: [120000, 120000, 120000, 120000, 120000, 120000],
+                backgroundColor: ["#34D399", "#FBBF24", "#3B82F6", "#2563EB", "#F59E0B", "#84CC16"],
+            }]
+        };
+
+        new Chart(document.getElementById('savingsPieChart'), {
+            type: 'pie',
+            data: savingsData,
+            options: { responsive: true }
+        });
+    </script>
 </body>
 </html>
