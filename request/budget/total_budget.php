@@ -56,7 +56,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+
+
+                                <!-- Category Section -->
+                                <table class="min-w-full table-auto mt-4 border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-200 text-gray-700">
+                                            <th class="px-4 py-2 text-left">Category</th>
+                                            <th class="px-4 py-2 text-left">Total Amount</th>
+                                            <th class="px-4 py-2 text-left">Contract Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="bg-blue-100">
+                                        <td class="px-4 py-2 font-semibold">Lorem</td>
+                                        <td class="px-4 py-2 font-semibold">120,000</td>
+                                        <td class="px-4 py-2 font-semibold">50,000</td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
                         </div>
 </body>
 </html>
