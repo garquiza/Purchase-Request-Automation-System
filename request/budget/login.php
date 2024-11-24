@@ -19,6 +19,7 @@
     <p class="mt-2 text-sm text-gray-600">Please enter your credentials to access the dashboard.</p>
   </div>
 
+  <!-- Form -->
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form class="space-y-6" action="#" method="POST">
       
@@ -41,8 +42,28 @@
         </div>
       </div>
 
-      <div>
-        <button type="done" class="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600">Log In</button>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input type="checkbox" id="remember" name="remember" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+        </div>
+        <div class="space-x-2 text-sm">
+          <a href="register.php" class="font-semibold text-indigo-600 hover:text-indigo-500">Sign Up Here</a>
+        </div>
       </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600">Log In</button>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="../bac/login.php" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">Log in as BAC</a>
+        <a href="../admin/login.php" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 ml-4">Log in as Admin</a>
+        <a href="../end-user/login.php" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 ml-4">Log in as End-User</a>
+      </div>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
