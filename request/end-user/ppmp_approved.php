@@ -15,8 +15,7 @@
 
     <div class="flex min-h-screen flex-col md:flex-row">
         <?php include './partials/sidebar.php'; ?>
-
-<div class="flex-1 p-0 mt-4 md:mt-0 md:ml-4 max-w-screen-lg mx-auto">
+    <div class="flex-1 p-0 mt-4 md:mt-0 md:ml-4 max-w-screen-lg mx-auto">
     <h1 class="text-3xl font-bold mb-6 text-gray-800">PPMP Approved List</h1>
 
     <section class="mb-10">
