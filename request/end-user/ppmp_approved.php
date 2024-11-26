@@ -17,7 +17,7 @@
         <?php include './partials/sidebar.php'; ?>
 
         <div class="w-full md:w-3/4 lg:w-3/4 xl:w-3/4 p-6 mt-4 md:mt-0 md:ml-6">
-            <h1 class="text-3xl font-bold mb-6 text-gray-800">PPMP Pending List</h1>
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">PPMP Approved List</h1>
 
             <section class="mb-10">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
