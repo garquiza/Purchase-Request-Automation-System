@@ -15,9 +15,7 @@
 
         <?php  include './partials/sidebar.php' ?>
 
-        <!-- Main Content Area -->
         <div class="flex-1 p-12">
-            <!-- Page Title -->
             <h1 class="text-4xl font-semibold text-gray-800 mb-6">Notifications</h1>
 
             <!-- Notification Cards -->
@@ -72,7 +70,6 @@
 
     </div>
 
-    <!-- Sidebar Dropdown JS -->
     <script>
         const dropdownButton = document.getElementById('dropdown-button');
         const dropdownMenu = document.getElementById('dropdown-menu');
