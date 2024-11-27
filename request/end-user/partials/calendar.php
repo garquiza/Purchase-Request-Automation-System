@@ -82,7 +82,6 @@ button:hover {
 
 
 <div class="calendar bg-white p-6 rounded-lg shadow-lg">
-<!-- Clock Section -->
 <div id="clock" class="text-xl font-semibold text-gray-800 mt-4">
 </div>
     <div class="flex justify-between items-center mb-6">
@@ -106,7 +105,6 @@ button:hover {
         <div class="font-semibold text-gray-600">Fri</div>
         <div class="font-semibold text-gray-600">Sat</div>
 
-        <!-- Calendar days -->
         <div id="calendar-days" class="col-span-7 mt-4 grid grid-cols-7 gap-4">
         </div>
     </div>
@@ -118,7 +116,7 @@ button:hover {
 
 document.addEventListener('DOMContentLoaded', function () {
     let currentDate = new Date();
-    const today = currentDate.getDate(); // Get today's day number
+    const today = currentDate.getDate(); 
 
     const monthYearDisplay = document.getElementById('calendar-month');
     const calendarDaysContainer = document.getElementById('calendar-days');
@@ -137,10 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Update the displayed month and year
         monthYearDisplay.textContent = `${firstDayOfMonth.toLocaleString('default', { month: 'long' })} ${year}`;
 
-        // Clear the previous calendar days
         calendarDaysContainer.innerHTML = '';
 
-        // Add empty cells for the first week if the month does not start on Sunday
         for (let i = 0; i < firstDay; i++) {
             const emptyCell = document.createElement('div');
             emptyCell.classList.add('text-transparent'); 
@@ -154,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Check if the current day is today's date
             if (day === today && currentDate.getMonth() === new Date().getMonth() && currentDate.getFullYear() === new Date().getFullYear()) {
-                dayCell.classList.add('bg-blue-500', 'text-white'); // Highlight today
+                dayCell.classList.add('bg-blue-500', 'text-white'); 
             }
 
             dayCell.textContent = day;
@@ -187,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let seconds = now.getSeconds();
         const ampm = hours >= 12 ? 'PM' : 'AM';
 
-        // Convert to 12-hour format
         hours = hours % 12;
         hours = hours ? hours : 12; 
         minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -195,11 +190,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
         
-        // Update the clock element
+      
         clockElement.textContent = timeString;
     }
 
-    setInterval(updateClock, 1000); 
+    setInterval(updateClock, 1000);
     updateClock(); 
 });
 
