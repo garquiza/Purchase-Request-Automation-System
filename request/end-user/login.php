@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Log In</title>
+    <title>End-User Log In</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Add SweetAlert2 -->
 </head>
 <body class="bg-gray-50">
 <div class="sm:mx-auto sm:w-full sm:max-w-sm text-center mb-6 mt-10">
@@ -23,7 +24,7 @@
 
   <!-- Form Section -->
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="#" method="POST">
+    <form id="loginForm" class="space-y-6" action="login_process.php" method="POST">
       
       <!-- Email Field -->
       <div>
@@ -71,6 +72,48 @@
     </form>
   </div>
 </div>
+
+<!-- JavaScript to handle form submission and show SweetAlert -->
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+    
+    const formData = new FormData(this); // Collect form data
+
+    fetch("functions/login_process.php", {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => response.json()) // Assuming login_process.php returns JSON
+    .then(data => {
+      if (data.success) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'You are logged in successfully.',
+          icon: 'success',
+          confirmButtonText: 'Okay',
+        }).then(() => {
+          window.location.href = 'dashboard.php'; // Redirect user to dashboard or another page
+        });
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: data.message, // Display error message from the server
+          icon: 'error',
+          confirmButtonText: 'Try Again',
+        });
+      }
+    })
+    .catch(error => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'An unexpected error occurred.',
+        icon: 'error',
+        confirmButtonText: 'Try Again',
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
