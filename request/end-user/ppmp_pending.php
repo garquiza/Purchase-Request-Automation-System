@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annual Procurement Plan</title>
+    <title>Project Procurement Management Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,7 +21,7 @@
 
             <section class="mb-10">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    
+
                     <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex flex-col justify-between">
                         <h3 class="text-3xl font-bold mt-2">Total Number: </h3>
                     </div>
@@ -44,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Procurement Plan Table -->
             <div class="overflow-x-auto mb-6 shadow-md rounded-lg">
                 <table class="w-full border-collapse text-sm">
                     <thead class="bg-gray-200 text-gray-700">
@@ -60,7 +59,7 @@
                         <tr class="even:bg-gray-50 hover:bg-gray-200 transition-colors duration-200 border-b border-gray-300">
                             <td class="border p-3">Lorem</td>
                             <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>     
+                            <td class="border p-3">Lorem</td>
                             <td class="border p-3">Lorem</td>
                             <td class="border p-3 text-center space-x-3">
                                 <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-download"></i></button>

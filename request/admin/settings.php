@@ -5,23 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Settings</title>
-    <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <div class="flex h-screen">
-        <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
 
-        <!-- Main Wrapper -->
         <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            <!-- Page Title -->
             <h1 class="text-3xl font-semibold text-gray-800 mb-6">User Settings</h1>
 
-            <!-- Settings Form Wrapper -->
             <div class="bg-white shadow-md rounded-lg p-6 space-y-6">
-                <!-- Profile Information -->
                 <div>
                     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Profile Information</h2>
                     <form action="#" method="POST">
@@ -52,7 +47,6 @@
                     </form>
                 </div>
 
-                <!-- Change Password Section -->
                 <div>
                     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Change Password</h2>
                     <form action="#" method="POST">
@@ -85,28 +79,23 @@
                     </form>
                 </div>
 
-                <!-- Signature Section -->
                 <div>
                     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Signature</h2>
                     <p class="text-sm text-gray-500 mb-4">Please provide your signature below:</p>
 
-                    <!-- Canvas for Signature -->
                     <div class="relative w-full mb-4">
                         <canvas id="signature-pad" class="border border-gray-300 w-full h-48 rounded-md"></canvas>
                     </div>
 
                     <div class="flex justify-between">
-                        <!-- Clear Button -->
                         <button id="clear"
                             class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none">Clear</button>
 
-                        <!-- Save Button -->
                         <button id="save"
                             class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none">Save
                             Signature</button>
                     </div>
 
-                    <!-- Hidden Input to Store Base64 Signature -->
                     <input type="hidden" id="signature-data" name="signature_data">
                 </div>
 
@@ -115,11 +104,9 @@
     </div>
 
     <script>
-        // Get the canvas element and set dimensions
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas);
 
-        // Function to set up the canvas size based on window size
         function resizeCanvas() {
             const ratio = window.devicePixelRatio || 1;
             const width = canvas.offsetWidth * ratio;
@@ -127,30 +114,26 @@
 
             canvas.width = width;
             canvas.height = height;
-            signaturePad.clear(); // Clear canvas when resizing
+            signaturePad.clear();
         }
 
-        // Call resize function when the window is resized
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas(); // Initial resize on page load
+        resizeCanvas();
 
-        // Clear Button Functionality
         document.getElementById('clear').addEventListener('click', function() {
             signaturePad.clear();
         });
 
-        // Save Button Functionality
         document.getElementById('save').addEventListener('click', function() {
             if (!signaturePad.isEmpty()) {
-                const dataUrl = signaturePad.toDataURL(); // Get the signature as a base64 string
-                document.getElementById('signature-data').value = dataUrl; // Store it in a hidden input field
+                const dataUrl = signaturePad.toDataURL();
+                document.getElementById('signature-data').value = dataUrl;
                 alert('Signature saved!');
             } else {
                 alert('Please provide a signature!');
             }
         });
     </script>
-
 </body>
 
 </html>
