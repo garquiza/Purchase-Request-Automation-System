@@ -1,15 +1,15 @@
 <?php
 include 'functions/session.php';
-include 'functions/config.php'; 
+include 'functions/config.php';
 
-$userId = $_SESSION['user_id']; 
+$userId = $_SESSION['user_id'];
 
 $query = "SELECT first_name FROM end_users WHERE id = ?";
 $stmt = $pdo->prepare($query);
 $stmt->execute([$userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$firstName = $user ? $user['first_name'] : 'Guest'; 
+$firstName = $user ? $user['first_name'] : 'Guest';
 ?>
 
 <style>
@@ -60,8 +60,13 @@ $firstName = $user ? $user['first_name'] : 'Guest';
   <a href="./Notification.php"><i class="bi bi-bell-fill"></i></a>
   <a href="./settings.php"><i class="bi bi-person-circle"></i></a>
   <div class="user-info">
-    <h2>Hello!</h2>
-    <img src="path_to_user_profile_image.jpg" alt="Profile Image">
+    <<<<<<< HEAD
+      <h2>Hello!</h2>
+      <img src="path_to_user_profile_image.jpg" alt="Profile Image">
+      =======
+      <h2>Hello! <strong> <?php echo htmlspecialchars($firstName); ?> </strong></h2>
+      <img src="path_to_user_profile_image.jpg" alt="Profile Image">
+      >>>>>>> 740014e21c4608b45afa6994a3d1fbf22dd20852
   </div>
 </div>
 
@@ -88,6 +93,7 @@ $firstName = $user ? $user['first_name'] : 'Guest';
 </aside>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>

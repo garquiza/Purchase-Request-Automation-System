@@ -108,6 +108,47 @@
     });
   </script>
 
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch("functions/login_process.php", {
+          method: "POST",
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'You are logged in successfully.',
+              icon: 'success',
+              confirmButtonText: 'Okay',
+            }).then(() => {
+              window.location.href = 'dashboard.php';
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text: data.message,
+              icon: 'error',
+              confirmButtonText: 'Try Again',
+            });
+          }
+        })
+        .catch(error => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'An unexpected error occurred.',
+            icon: 'error',
+            confirmButtonText: 'Try Again',
+          });
+        });
+    });
+  </script>
+
 </body>
 
 </html>
