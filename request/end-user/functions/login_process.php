@@ -1,12 +1,10 @@
 <?php
 require_once 'config.php';
 
-// Check if the form is submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Validate email and password
     if (empty($email) || empty($password)) {
         echo json_encode([
             'success' => false,
@@ -15,13 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // To check if email exists in database
     $stmt = $pdo->prepare("SELECT * FROM end_users WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Verify password with hash
         if (password_verify($password, $user['password'])) {
             session_start();
             $_SESSION['user_id'] = $user['id'];
@@ -55,4 +51,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'message' => 'Invalid request.',
     ]);
 }
-?>

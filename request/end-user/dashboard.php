@@ -10,7 +10,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    
+
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
@@ -24,7 +24,6 @@
                 <p class="text-gray-600">Insights into user trends, revenue, and more.</p>
             </header>
 
-            <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
                 <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-lg text-white">
                     <p class="text-sm font-medium text-indigo-100">Purchase Request</p>
@@ -42,7 +41,6 @@
                 </div>
             </div>
 
-            <!-- Chart Section -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="p-6 bg-white rounded-lg shadow-lg">
                     <h3 class="text-lg font-semibold text-gray-700">Revenue Over Time</h3>

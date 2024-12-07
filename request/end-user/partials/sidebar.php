@@ -1,3 +1,17 @@
+<?php
+include 'functions/session.php';
+include 'functions/config.php'; 
+
+$userId = $_SESSION['user_id']; 
+
+$query = "SELECT first_name FROM end_users WHERE id = ?";
+$stmt = $pdo->prepare($query);
+$stmt->execute([$userId]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$firstName = $user ? $user['first_name'] : 'Guest'; 
+?>
+
 <style>
   .top-right-icons {
     position: fixed;
@@ -47,7 +61,7 @@
   <a href="./settings.php"><i class="bi bi-person-circle"></i></a>
   <div class="user-info">
     <h2>Hello!</h2>
-    <img src="path_to_user_profile_image.jpg" alt="Profile Image"> 
+    <img src="path_to_user_profile_image.jpg" alt="Profile Image">
   </div>
 </div>
 
@@ -56,7 +70,7 @@
   <nav class="space-y-4">
     <a href="dashboard.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Dashboard</a>
     <a href="purchase_request.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Purchase Request</a>
-    
+
     <div x-data="{ open: false }" class="relative">
       <button @click="open = !open" class="w-full flex justify-between items-center py-2 px-3 rounded hover:bg-indigo-600">
         PPMP
@@ -72,3 +86,24 @@
     <a id="logoutButton" class="block py-2 px-3 rounded hover:bg-indigo-600">Log Out</a>
   </nav>
 </aside>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.getElementById('logoutButton').addEventListener('click', function() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you really want to log out?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log me out!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'functions/logout.php';
+      }
+    });
+  });
+</script>

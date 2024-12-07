@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; 
+require_once 'config.php';
 
 header('Content-Type: application/json');
 
@@ -7,8 +7,8 @@ $first_name = trim($_POST['first_name']);
 $last_name = trim($_POST['last_name']);
 $email = trim($_POST['email']);
 $password = $_POST['password'];
-$confirm_password = $_POST['cpassword']; 
-$remember_me = isset($_POST['remember']) ? 1 : 0; 
+$confirm_password = $_POST['cpassword'];
+$remember_me = isset($_POST['remember']) ? 1 : 0;
 
 $response = array('success' => false, 'message' => '');
 
@@ -34,7 +34,6 @@ if ($stmt->rowCount() > 0) {
     exit();
 }
 
-// Hash password
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
 $sql_insert = "INSERT INTO end_users (first_name, last_name, email, password, remember_me) 
@@ -50,7 +49,7 @@ try {
         'remember_me' => $remember_me
     ]);
 
-    
+
     $response['success'] = true;
     $response['message'] = 'User registered successfully!';
 } catch (PDOException $e) {
@@ -58,4 +57,3 @@ try {
 }
 
 echo json_encode($response);
-?>

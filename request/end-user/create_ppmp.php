@@ -21,7 +21,6 @@
 
             <form id="addItemForm" class="space-y-10">
 
-                <!-- Department & Section -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div>
                         <label for="department" class="block text-lg font-medium text-gray-700">Department:</label>
@@ -33,7 +32,6 @@
                     </div>
                 </div>
 
-                <!-- Item Description & Quantity -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div>
                         <label for="itemDescription" class="block text-lg font-medium text-gray-700">Item Description:</label>
@@ -45,7 +43,6 @@
                     </div>
                 </div>
 
-                <!-- Unit Cost & Total Cost -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                     <div>
                         <label for="unitCost" class="block text-lg font-medium text-gray-700">Unit Cost:</label>
@@ -57,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- Purpose -->
                 <div class="grid grid-cols-1 gap-8 mt-6">
                     <div>
                         <label for="purpose" class="block text-lg font-medium text-gray-700">Purpose:</label>
@@ -65,7 +61,6 @@
                     </div>
                 </div>
 
-                <!-- Months Checkboxes -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 mt-6">
                     <div class="flex items-center">
                         <input type="checkbox" id="jan" name="months[]" value="January" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
