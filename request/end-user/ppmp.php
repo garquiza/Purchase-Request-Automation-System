@@ -4,12 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annual Procurement Plan</title>
-    <!-- Tailwind CSS -->
+    <title>Project Procurement Management Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Bootstrap CSS for Modal -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -24,7 +21,7 @@
 
             <section class="mb-10">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    
+
                     <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex flex-col justify-between">
                         <h3 class="text-3xl font-bold mt-2">Total Number: </h3>
                     </div>
@@ -33,7 +30,6 @@
 
             <div class="flex justify-between items-center mb-6">
                 <div class="flex space-x-2">
-                    <!-- Link to create new PPMP page -->
                     <a href="create_ppmp.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
                         <i class="fas fa-plus-circle mr-2"></i> Add
                     </a>
@@ -48,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Procurement Plan Table -->
             <div class="overflow-x-auto mb-6 shadow-md rounded-lg">
                 <table class="w-full border-collapse text-sm">
                     <thead class="bg-gray-200 text-gray-700">
@@ -64,7 +59,7 @@
                         <tr class="even:bg-gray-50 hover:bg-gray-200 transition-colors duration-200 border-b border-gray-300">
                             <td class="border p-3">Lorem</td>
                             <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>     
+                            <td class="border p-3">Lorem</td>
                             <td class="border p-3">Lorem</td>
                             <td class="border p-3 text-center space-x-3">
                                 <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-download"></i></button>
@@ -79,7 +74,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>

@@ -1,10 +1,10 @@
-<!-- Sidebar -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php include 'functions/session.php'; ?>
 <aside class="w-64 bg-indigo-700 text-white flex flex-col p-6 hidden md:block md:w-1/4 lg:w-1/5 xl:w-1/6">
     <h2 class="text-2xl font-bold mb-6 text-center">Dashboard</h2>
     <nav class="space-y-4">
         <a href="admin_dashboard.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Dashboard</a>
-            
-        <!-- Procurement Process with Dropdown -->
+
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" class="w-full flex justify-between items-center py-2 px-3 rounded hover:bg-indigo-600">
                 Procurement Process
@@ -27,7 +27,6 @@
             </div>
         </div>
 
-        <!-- User -->
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" class="w-full flex justify-between items-center py-2 px-3 rounded hover:bg-indigo-600">
                 User
@@ -37,14 +36,32 @@
             </button>
             <div x-show="open" class="mt-2 pl-6 space-y-2">
                 <a href="user.php" class="block py-2 px-3 rounded hover:bg-indigo-600">User Management</a>
-      
+
             </div>
         </div>
-        
+
+
         <a href="history.php" class="block py-2 px-3 rounded hover:bg-indigo-600">History Logs</a>
-            
-        <!-- Settings and Log Out -->
-         <a href="settings.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Settings</a>
-         <a href="logout.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Log Out</a>
+        <a href="settings.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Settings</a>
+        <a id="logoutButton" class="block py-2 px-3 rounded hover:bg-indigo-600">Log Out</a>
     </nav>
 </aside>
+
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will be logged out from the system.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Logout',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'functions/logout.php';
+            }
+        });
+    });
+</script>

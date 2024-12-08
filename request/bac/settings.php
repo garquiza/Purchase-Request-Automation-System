@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Settings</title>
-    <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -13,16 +12,14 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <div class="flex h-screen">
 
-        <!-- Sidebar -->
         <?php include './partials/sidebar.php'; ?>
 
-        <!-- Main Wrapper -->
         <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
             <h1 class="text-3xl font-semibold text-gray-800 mb-6">User Settings</h1>
             <button id="save"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none"><i class="bi bi-person-circle"></i> Switch Account</button><br>
 
-            <!-- Form --><br>
+            <br>
             <div class="bg-white shadow-md rounded-lg p-6 space-y-6">
                 <div>
                     <h2 class="text-2xl font-semibold text-gray-700 mb-4">Profile Information</h2>
@@ -117,11 +114,9 @@
     </div>
 
     <script>
-        // Get the canvas element and set dimensions
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas);
 
-        // Function to set up the canvas size based on window size
         function resizeCanvas() {
             const ratio = window.devicePixelRatio || 1;
             const width = canvas.offsetWidth * ratio;
@@ -132,16 +127,13 @@
             signaturePad.clear();
         }
 
-        // Call resize function when the window is resized
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Clear Button Functionality
         document.getElementById('clear').addEventListener('click', function() {
             signaturePad.clear();
         });
 
-        // Save Button Functionality
         document.getElementById('save').addEventListener('click', function() {
             if (!signaturePad.isEmpty()) {
                 const dataUrl = signaturePad.toDataURL();
