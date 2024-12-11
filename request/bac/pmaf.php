@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,14 +100,14 @@
             </div>
         </div>
     </div>
-                
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <!-- JavaScript to Add Checkboxes Dynamically -->
     <script>
-        document.getElementById('add-checkbox').addEventListener('click', function () {
+        document.getElementById('add-checkbox').addEventListener('click', function() {
             const container = document.getElementById('checkbox-container');
             const newCheckbox = document.createElement('div');
             newCheckbox.classList.add('flex', 'items-center', 'space-x-2', 'mb-4');
