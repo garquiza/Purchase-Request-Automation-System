@@ -128,51 +128,59 @@
     </style>
 </head>
 
+<?php
+$first_name = $_SESSION['first_name'];
+$last_name = $_SESSION['last_name'];
+
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
+
 <body>
 
     <body>
         <nav class="sidebar">
             <h5 class="text-center"><i class="fas fa-cogs"></i> Admin Panel</h5>
             <div class="user-info">
+                <h6><?= htmlspecialchars($first_name . ' ' . $last_name); ?></h6>
                 <p>Admin</p>
             </div>
             <ul>
-                <li class="">
+                <li class="<?= $current_page === 'dashboard.php' ? 'active' : '' ?>">
                     <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                 </li>
-                <li class="">
+                <li class="<?= $current_page === 'notifications.php' ? 'active' : '' ?>">
                     <a href="notifications.php"><i class="fa-solid fa-envelope"></i> Notification <span class="badge text-bg-danger ms-auto">0</span></a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown <?= in_array($current_page, ['app.php', 'ppmp_list.php', 'pr.php', 'pp.php', 'pmf.php', 'rfq.php', 'aoq.php', 'reso.php', 'noa.php', 'ntp.php', 'po.php', 'pmr.php']) ? 'active' : '' ?>">
                     <a href="#"><i class="fas fa-box"></i> Procurement <i class="fas fa-chevron-down ms-auto"></i></a>
                     <ul>
-                        <li><a href="app.php" class="<i class="fas fa-file-alt"></i> APP</a></li>
-                        <li><a href="ppmp_list.php" class=""><i class="fas fa-clipboard"></i> PPMP</a></li>
-                        <li><a href="pr.php" class=""><i class="fas fa-receipt"></i> PR</a></li>
-                        <li><a href="pmf.php" class=""><i class="fas fa-calendar-check"></i> PMAF</a></li>
-                        <li><a href="rfq.php" class=""><i class="fas fa-handshake"></i> RFQ</a></li>
-                        <li><a href="aoq.php" class=""><i class="fas fa-table"></i> AOQ</a></li>
-                        <li><a href="reso.php" class=""><i class="fas fa-file-signature"></i> RESO</a></li>
-                        <li><a href="noa.php" class=""><i class="fas fa-award"></i> NOA</a></li>
-                        <li><a href="ntp.php" class=""><i class="fas fa-paper-plane"></i> NTP</a></li>
-                        <li><a href="po.php" class=""><i class="fas fa-file-contract"></i> PO</a></li>
-                        <li><a href="pmr.php" class=""><i class="fas fa-chart-line"></i> PMR</a></li>
+                        <li><a href="app.php" class="<?= $current_page === 'app.php' ? 'active' : '' ?>"><i class="fas fa-file-alt"></i> APP</a></li>
+                        <li><a href="ppmp_list.php" class="<?= $current_page === 'ppmp_list.php' ? 'active' : '' ?>"><i class="fas fa-clipboard"></i> PPMP</a></li>
+                        <li><a href="pr.php" class="<?= $current_page === 'pr.php' ? 'active' : '' ?>"><i class="fas fa-receipt"></i> PR</a></li>
+                        <li><a href="pmf.php" class="<?= $current_page === 'pmaf.php' ? 'active' : '' ?>"><i class="fas fa-calendar-check"></i> PMAF</a></li>
+                        <li><a href="rfq.php" class="<?= $current_page === 'rfq.php' ? 'active' : '' ?>"><i class="fas fa-handshake"></i> RFQ</a></li>
+                        <li><a href="aoq.php" class="<?= $current_page === 'aoq.php' ? 'active' : '' ?>"><i class="fas fa-table"></i> AOQ</a></li>
+                        <li><a href="reso.php" class="<?= $current_page === 'reso.php' ? 'active' : '' ?>"><i class="fas fa-file-signature"></i> RESO</a></li>
+                        <li><a href="noa.php" class="<?= $current_page === 'noa.php' ? 'active' : '' ?>"><i class="fas fa-award"></i> NOA</a></li>
+                        <li><a href="ntp.php" class="<?= $current_page === 'ntp.php' ? 'active' : '' ?>"><i class="fas fa-paper-plane"></i> NTP</a></li>
+                        <li><a href="po.php" class="<?= $current_page === 'po.php' ? 'active' : '' ?>"><i class="fas fa-file-contract"></i> PO</a></li>
+                        <li><a href="pmr.php" class="<?= $current_page === 'pmr.php' ? 'active' : '' ?>"><i class="fas fa-chart-line"></i> PMR</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown <?= in_array($current_page, ['create_user.php', 'user_management.php']) ? 'active' : '' ?>">
                     <a href="#"><i class="fas fa-user"></i> User <i class="fas fa-chevron-down ms-auto"></i></a>
                     <ul>
-                        <li><a href="create_user.php" class=""><i class="fas fa-user-plus"></i> Create User</a></li>
-                        <li><a href="user_management.php" class=""><i class="fas fa-users-cog"></i> User Management</a></li>
+                        <li><a href="create_user.php" class="<?= $current_page === 'create_user.php' ? 'active' : '' ?>"><i class="fas fa-user-plus"></i> Create User</a></li>
+                        <li><a href="user_management.php" class="<?= $current_page === 'user_management.php' ? 'active' : '' ?>"><i class="fas fa-users-cog"></i> User Management</a></li>
                     </ul>
                 </li>
-                <li class="">
+                <li class="<?= $current_page === 'history.php' ? 'active' : '' ?>">
                     <a href="history.php"><i class="fas fa-history"></i> History Logs</a>
                 </li>
-                <li class="">
+                <li class="<?= $current_page === 'inventory.php' ? 'active' : '' ?>">
                     <a href="inventory.php"><i class="fas fa-box"></i> Inventory</a>
                 </li>
-                <li class="">
+                <li class="<?= $current_page === 'settings.php' ? 'active' : '' ?>">
                     <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
                 </li>
                 <li>
