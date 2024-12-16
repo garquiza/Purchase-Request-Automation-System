@@ -1,67 +1,213 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<?php include 'functions/session.php'; ?>
-<aside class="w-64 bg-indigo-700 text-white flex flex-col p-6 hidden md:block md:w-1/4 lg:w-1/5 xl:w-1/6">
-    <h2 class="text-2xl font-bold mb-6 text-center">Dashboard</h2>
-    <nav class="space-y-4">
-        <a href="admin_dashboard.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Dashboard</a>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div x-data="{ open: false }" class="relative">
-            <button @click="open = !open" class="w-full flex justify-between items-center py-2 px-3 rounded hover:bg-indigo-600">
-                Procurement Process
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-            <div x-show="open" class="mt-2 pl-6 space-y-2">
-                <a href="app.php" class="block py-2 px-3 rounded hover:bg-indigo-600">APP</a>
-                <a href="ppmp.php" class="block py-2 px-3 rounded hover:bg-indigo-600">PPMP</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">PR</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">PMAF</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">RFQ</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">AOQ</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">RESO</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">NOA</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">NTP</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">PO</a>
-                <a href="pr.php" class="block py-2 px-3 rounded hover:bg-indigo-600">PMR</a>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #ffffff;
+            border-right: 1px solid #e6e6e6;
+            padding: 20px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            overflow-y: auto;
+            transition: all 0.3s ease-in-out;
+        }
 
-        <div x-data="{ open: false }" class="relative">
-            <button @click="open = !open" class="w-full flex justify-between items-center py-2 px-3 rounded hover:bg-indigo-600">
-                User
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transform transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-            <div x-show="open" class="mt-2 pl-6 space-y-2">
-                <a href="user.php" class="block py-2 px-3 rounded hover:bg-indigo-600">User Management</a>
+        .sidebar h5 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #333;
+            border-bottom: 2px solid #e6e6e6;
+            padding-bottom: 10px;
+            text-align: left;
+        }
 
-            </div>
-        </div>
+        .sidebar ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
 
+        .sidebar ul li {
+            margin-bottom: 15px;
+            position: relative;
+        }
 
-        <a href="history.php" class="block py-2 px-3 rounded hover:bg-indigo-600">History Logs</a>
-        <a href="settings.php" class="block py-2 px-3 rounded hover:bg-indigo-600">Settings</a>
-        <a id="logoutButton" class="block py-2 px-3 rounded hover:bg-indigo-600">Log Out</a>
-    </nav>
-</aside>
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #444;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
 
-<script>
-    document.getElementById('logoutButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You will be logged out from the system.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Logout',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'functions/logout.php';
+        .sidebar ul li a:hover {
+            background-color: #f0f8ff;
+            color: #007bff;
+            transform: translateX(5px);
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar ul li ul {
+            margin-top: 5px;
+            margin-left: 15px;
+            list-style: none;
+            display: none;
+            padding-left: 10px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .sidebar ul li ul li a {
+            font-size: 14px;
+            color: #555;
+            padding: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar ul li ul li a:hover {
+            color: #007bff;
+        }
+
+        .sidebar ul li.active ul {
+            display: block;
+        }
+
+        .sidebar .logout {
+            margin-top: auto;
+            font-weight: bold;
+            color: #ff4d4d;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-info h6 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .user-info p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
-        });
-    });
-</script>
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <nav class="sidebar">
+            <h5 class="text-center"><i class="fas fa-cogs"></i> Admin Panel</h5>
+            <div class="user-info">
+                <p>Admin</p>
+            </div>
+            <ul>
+                <li class="">
+                    <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="">
+                    <a href="notifications.php"><i class="fa-solid fa-envelope"></i> Notification <span class="badge text-bg-danger ms-auto">0</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#"><i class="fas fa-box"></i> Procurement <i class="fas fa-chevron-down ms-auto"></i></a>
+                    <ul>
+                        <li><a href="app.php" class="<i class="fas fa-file-alt"></i> APP</a></li>
+                        <li><a href="ppmp_list.php" class=""><i class="fas fa-clipboard"></i> PPMP</a></li>
+                        <li><a href="pr.php" class=""><i class="fas fa-receipt"></i> PR</a></li>
+                        <li><a href="pmf.php" class=""><i class="fas fa-calendar-check"></i> PMAF</a></li>
+                        <li><a href="rfq.php" class=""><i class="fas fa-handshake"></i> RFQ</a></li>
+                        <li><a href="aoq.php" class=""><i class="fas fa-table"></i> AOQ</a></li>
+                        <li><a href="reso.php" class=""><i class="fas fa-file-signature"></i> RESO</a></li>
+                        <li><a href="noa.php" class=""><i class="fas fa-award"></i> NOA</a></li>
+                        <li><a href="ntp.php" class=""><i class="fas fa-paper-plane"></i> NTP</a></li>
+                        <li><a href="po.php" class=""><i class="fas fa-file-contract"></i> PO</a></li>
+                        <li><a href="pmr.php" class=""><i class="fas fa-chart-line"></i> PMR</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#"><i class="fas fa-user"></i> User <i class="fas fa-chevron-down ms-auto"></i></a>
+                    <ul>
+                        <li><a href="create_user.php" class=""><i class="fas fa-user-plus"></i> Create User</a></li>
+                        <li><a href="user_management.php" class=""><i class="fas fa-users-cog"></i> User Management</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="history.php"><i class="fas fa-history"></i> History Logs</a>
+                </li>
+                <li class="">
+                    <a href="inventory.php"><i class="fas fa-box"></i> Inventory</a>
+                </li>
+                <li class="">
+                    <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
+                </li>
+                <li>
+                    <a href="#" class="logout" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.querySelectorAll('.dropdown > a').forEach((dropdown) => {
+                dropdown.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const parent = dropdown.parentElement;
+                    parent.classList.toggle('active');
+                });
+            });
+
+            function confirmLogout() {
+                Swal.fire({
+                    title: 'Are you sure you want to logout?',
+                    text: 'You will need to log in again to access the admin panel.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, logout',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'logout.php';
+                    }
+                });
+            }
+        </script>
+    </body>
+
+</html>
