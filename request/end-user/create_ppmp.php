@@ -5,121 +5,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create PPMP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="src/css/ppmp.css">
 </head>
 
-<body class="bg-gray-100 font-sans leading-relaxed tracking-wide">
+<body>
+    <?php include 'sidebar.php'; ?>
 
-    <div class="flex min-h-screen flex-col md:flex-row">
-        <?php include './partials/sidebar.php'; ?>
+    <div class="content animate__animated animate__fadeIn">
+        <div class="header-card mb-4">
+            <h1 class="display-5 mb-2">Create PPMP</h1>
+            <p class="text-light">Fill out the form below to create a new PPMP.</p>
+        </div>
 
-        <div class="w-full max-w-4xl bg-white p-5 rounded-xl shadow-2xl ml-60 mt-20">
-            <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Create PPMP (PPMP)</h1>
-
-            <form id="addItemForm" class="space-y-10">
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div>
-                        <label for="department" class="block text-lg font-medium text-gray-700">Department:</label>
-                        <input type="text" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="department" name="department" required>
+        <div class="form-container position-relative">
+            <form id="create-ppmp-form">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="year">Year:</label>
+                        <input type="text" id="year" name="year" value="" required readonly>
                     </div>
-                    <div>
-                        <label for="section" class="block text-lg font-medium text-gray-700">Section:</label>
-                        <textarea class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="section" name="section" rows="4" required></textarea>
+                    <div class="col-md-6">
+                        <label for="project_title">Project Title:</label>
+                        <input type="text" id="project_title" name="project_title" required>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div>
-                        <label for="itemDescription" class="block text-lg font-medium text-gray-700">Item Description:</label>
-                        <input type="text" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="itemDescription" name="itemDescription" required>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="code">Code:</label>
+                        <input type="text" id="code" name="code" value="" required>
                     </div>
-                    <div>
-                        <label for="quantity" class="block text-lg font-medium text-gray-700">Quantity:</label>
-                        <input type="number" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="quantity" name="quantity" required>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div>
-                        <label for="unitCost" class="block text-lg font-medium text-gray-700">Unit Cost:</label>
-                        <input type="number" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="unitCost" name="unitCost" required>
-                    </div>
-                    <div>
-                        <label for="totalCost" class="block text-lg font-medium text-gray-700">Total Cost:</label>
-                        <input type="number" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="totalCost" name="totalCost" required>
+                    <div class="col-md-6">
+                        <label for="general_description">General Description:</label>
+                        <input type="text" id="general_description" name="general_description" required>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 gap-8 mt-6">
-                    <div>
-                        <label for="purpose" class="block text-lg font-medium text-gray-700">Purpose:</label>
-                        <input type="text" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-300" id="purpose" name="purpose" required>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="quantity_size">Quantity / Size:</label>
+                        <input type="text" id="quantity_size" name="quantity_size" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="estimated_budget">Estimated Budget:</label>
+                        <input type="number" id="estimated_budget" name="estimated_budget" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="mb-4">Schedule / Milestone of Activities:</label>
+                    <div class="schedule-checkboxes">
+                        <label><input type="checkbox" name="schedule[]" value="January"> January</label>
+                        <label><input type="checkbox" name="schedule[]" value="February"> February</label>
+                        <label><input type="checkbox" name="schedule[]" value="March"> March</label>
+                        <label><input type="checkbox" name="schedule[]" value="April"> April</label>
+                        <label><input type="checkbox" name="schedule[]" value="May"> May</label>
+                        <label><input type="checkbox" name="schedule[]" value="June"> June</label>
+                        <label><input type="checkbox" name="schedule[]" value="July"> July</label>
+                        <label><input type="checkbox" name="schedule[]" value="August"> August</label>
+                        <label><input type="checkbox" name="schedule[]" value="September"> September</label>
+                        <label><input type="checkbox" name="schedule[]" value="October"> October</label>
+                        <label><input type="checkbox" name="schedule[]" value="November"> November</label>
+                        <label><input type="checkbox" name="schedule[]" value="December"> December</label>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 mt-6">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="jan" name="months[]" value="January" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="jan" class="ml-2 text-lg">January</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="feb" name="months[]" value="February" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="feb" class="ml-2 text-lg">February</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="mar" name="months[]" value="March" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="mar" class="ml-2 text-lg">March</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="apr" name="months[]" value="April" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="apr" class="ml-2 text-lg">April</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="may" name="months[]" value="May" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="may" class="ml-2 text-lg">May</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="jun" name="months[]" value="June" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="jun" class="ml-2 text-lg">June</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="jul" name="months[]" value="July" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="jul" class="ml-2 text-lg">July</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="aug" name="months[]" value="August" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="aug" class="ml-2 text-lg">August</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="sep" name="months[]" value="September" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="sep" class="ml-2 text-lg">September</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="oct" name="months[]" value="October" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="oct" class="ml-2 text-lg">October</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="nov" name="months[]" value="November" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="nov" class="ml-2 text-lg">November</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="dec" name="months[]" value="December" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="dec" class="ml-2 text-lg">December</label>
-                    </div>
-                </div>
-
-                <div class="flex justify-end mt-12">
-                    <button type="submit" class="bg-blue-600 text-white text-lg py-2 px-8 rounded-lg focus:ring-4 focus:ring-blue-500 hover:bg-blue-700 transition duration-300">
-                        Save
-                    </button>
+                <div class="mb-4 text-center">
+                    <button type="submit">CREATE</button>
                 </div>
             </form>
+
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#create-ppmp-form').on('submit', function(event) {
+                event.preventDefault(); 
+
+                var formData = $(this).serialize(); 
+
+                $.ajax({
+                    url: 'src/process/add_ppmp.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', 
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'PPMP Created!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = 'ppmp_list.php'; 
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Something went wrong. Please try again.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
