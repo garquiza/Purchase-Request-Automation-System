@@ -213,6 +213,68 @@ foreach ($items as $item) {
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function editStatus(pr_id) {
+            Swal.fire({
+                title: 'Update Status',
+                input: 'select',
+                inputOptions: {
+                    'Approved': 'Approved',
+                    'Rejected': 'Rejected'
+                },
+                inputPlaceholder: 'Select status',
+                showCancelButton: true,
+                confirmButtonText: 'Update',
+                cancelButtonText: 'Cancel',
+                preConfirm: (status) => {
+                    if (status) {
+                        return status;
+                    } else {
+                        Swal.showValidationMessage('Please select a status');
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'src/process/update_pr.php',
+                        method: 'POST',
+                        data: {
+                            pr_id: pr_id,
+                            status: result.value
+                        },
+                        success: function(response) {
+                            const res = JSON.parse(response);
+
+                            if (res.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Status Updated',
+                                    text: 'The status has been updated successfully.'
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Update Failed',
+                                    text: res.message || 'There was an error updating the status.'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Something went wrong with the request.'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 
 </body>
 
