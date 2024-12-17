@@ -1,3 +1,102 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+require_once '../admin/src/config/database.php';
+
+if (!isset($_GET['pr_id'])) {
+    header('Location: purchase_requests.php');
+    exit();
+}
+$pr_id = intval($_GET['pr_id']);
+
+$pr_query = "
+    SELECT 
+        pr.pr_number, 
+        pr.approver, 
+        pr.submitted_date,
+        pr.status,
+        pr.end_user_id,
+        eu.first_name AS end_user_first_name, 
+        eu.last_name AS end_user_last_name
+    FROM purchase_requests pr
+    INNER JOIN end_users eu ON pr.end_user_id = eu.id
+    WHERE pr.pr_id = ?
+";
+$stmt = $conn->prepare($pr_query);
+if (!$stmt) {
+    die("Statement preparation failed: " . $conn->error);
+}
+$stmt->bind_param('i', $pr_id);
+$stmt->execute();
+$pr_result = $stmt->get_result();
+
+$pr_data = $pr_result->fetch_assoc();
+
+if (!$pr_data) {
+    die("Purchase request not found.");
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status'])) {
+    $new_status = $_POST['status'];
+    $approver = $_SESSION['user_name'];
+
+    $update_query = "UPDATE purchase_requests SET status = ?, approver = ? WHERE pr_id = ?";
+    $stmt_update = $conn->prepare($update_query);
+    $stmt_update->bind_param('ssi', $new_status, $approver, $pr_id);
+
+    if ($stmt_update->execute()) {
+        header("Location: pr_details.php?pr_id=" . $pr_id);
+        exit();
+    } else {
+        echo "Error updating status: " . $stmt_update->error;
+    }
+}
+
+$items_query = "
+    SELECT 
+        pri.department, 
+        pri.section, 
+        inv.item_name AS item_name, 
+        pri.quantity, 
+        pri.unit_cost, 
+        pri.total_cost, 
+        pri.purpose,
+        eu.first_name AS requested_first_name,
+        eu.last_name AS requested_last_name
+    FROM purchase_request_items pri
+    INNER JOIN inventory inv ON pri.inventory_id = inv.inventory_id
+    INNER JOIN purchase_requests pr ON pri.pr_id = pr.pr_id
+    INNER JOIN end_users eu ON pr.end_user_id = eu.id
+    WHERE pri.pr_id = ?
+";
+$stmt_items = $conn->prepare($items_query);
+if (!$stmt_items) {
+    die("Statement preparation failed: " . $conn->error);
+}
+$stmt_items->bind_param('i', $pr_id);
+$stmt_items->execute();
+$items_result = $stmt_items->get_result();
+if (!$items_result) {
+    die("Query execution failed: " . $conn->error);
+}
+$items = $items_result->fetch_all(MYSQLI_ASSOC);
+if (!$items) {
+    die("No items found for this purchase request.");
+}
+
+$total_amount = 0;
+
+foreach ($items as $item) {
+    $total_amount += $item['total_cost'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
