@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-require_once '../admin/src/config/database.php';
+require_once '../admin/src/config/database.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -136,5 +136,4 @@ require_once '../admin/src/config/database.php';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
