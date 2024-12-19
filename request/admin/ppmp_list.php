@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+require_once '../admin/src/config/database.php';
+
+$query = "SELECT ppmp_id, project_title, approver, date_created, status FROM ppmp_list";
+$result = mysqli_query($conn, $query);
+
+if (!$result) {
+    die("Error fetching data: " . mysqli_error($conn));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +32,7 @@
 </head>
 
 <body>
+    <?php include '../admin/sidebar.php'; ?>
 
     <div class="content animate__animated animate__fadeIn">
         <div class="header-card mb-4">
@@ -51,23 +70,46 @@
                     </tr>
                 </thead>
                 <tbody id="ppmp-table">
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <tr data-status="<?php echo $row['status']; ?>">
+                            <td><?php echo htmlspecialchars($row['project_title']); ?></td>
+                            <td><?php echo htmlspecialchars($row['approver']); ?></td>
+                            <td><?php echo date("F j, Y", strtotime($row['date_created'])); ?></td>
+                            <td>
+                                <?php
+                                $statusClass = '';
+                                switch ($row['status']) {
+                                    case 'approved':
+                                        $statusClass = 'badge-approved';
+                                        break;
+                                    case 'pending':
+                                        $statusClass = 'badge-pending text-dark';
+                                        break;
+                                    case 'rejected':
+                                        $statusClass = 'badge-rejected';
+                                        break;
+                                }
+                                ?>
+                                <span class="badge <?php echo $statusClass; ?>"><?php echo ucfirst($row['status']); ?></span>
+                            </td>
                             <td class="text-justify">
                                 <div class="btn-group" role="group" aria-label="Actions">
-                                    <a href="../admin/download_ppmp.php?ppmp_id=" class="btn btn-outline-primary btn-sm" title="Download PPMP" style="margin-right: 5px;">
+                                    <a href="../admin/download_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-primary btn-sm" title="Download PPMP" style="margin-right: 5px;">
                                         <i class="fas fa-download"></i>
                                     </a>
-                                    <a href="../admin/view_ppmp.php?ppmp_id=" class="btn btn-outline-info btn-sm" title="View PPMP" style="margin-right: 5px;">
+                                    <a href="../admin/view_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-info btn-sm" title="View PPMP" style="margin-right: 5px;">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="../admin/update_ppmp.php?ppmp_id=" class="btn btn-outline-warning btn-sm" title="Update PPMP" style="margin-right: 5px;">
+                                    <a href="../admin/update_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-warning btn-sm" title="Update PPMP" style="margin-right: 5px;">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button class="btn btn-outline-danger btn-sm" title="Delete PPMP" onclick="confirmDelete('')">
+                                    <button class="btn btn-outline-danger btn-sm" title="Delete PPMP" onclick="confirmDelete('<?php echo $row['ppmp_id']; ?>')">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
+                    <?php endwhile; ?>
                 </tbody>
             </table>
         </div>
