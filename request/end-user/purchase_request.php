@@ -4,100 +4,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Request</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Purchase Request List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="bg-gray-100 font-sans leading-relaxed tracking-wide">
+<body>
+    <div class="d-flex">
+        <?php include 'sidebar.php'; ?>
 
-    <div class="flex min-h-screen flex-col md:flex-row">
-        <?php include './partials/sidebar.php'; ?>
-
-        <div class="w-full md:w-3/4 lg:w-3/4 xl:w-3/4 p-6 mt-4 md:mt-0 md:ml-6">
-            <h1 class="text-3xl font-bold mb-6 text-gray-800">Purchase Request List</h1>
-
-            <div class="absolute top-20 right-4 flex space-x-2 flex-wrap md:flex-nowrap">
-                <a class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" data-bs-toggle="modal" data-bs-target="#addFormModal">
-                    <i class="fas fa-plus-circle mr-2"></i> Add
-                </a>
-                <a href="purchase_request.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
-                    All
-                </a>
-                <a href="purchase_approved.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
-                    Approved
-                </a>
-                <a href="purchase_rejected.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
-                    Rejected
-                </a>
-                <a href="purchase_pending.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
-                    Pending
-                </a>
+        <div class="content flex-grow-1 animate__animated animate__fadeIn">
+            <div class="header-card mb-4">
+                <h1 class="display-5 mb-2">Purchase Request List</h1>
+                <p class="text-light">Manage and track the status of your purchase requests.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-                <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg text-white">
-                    <p class="text-sm font-medium text-indigo-100">Total Number</p>
-                    <h2 class="text-3xl font-bold">21</h2>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Pending</h5>
+                            <h2 class="card-text text-warning"></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Approved</h5>
+                            <h2 class="card-text text-success"></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Rejected</h5>
+                            <h2 class="card-text text-danger"></h2>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex justify-between mb-6 flex-wrap md:flex-nowrap">
-                <div class="flex items-center space-x-2 ml-auto w-full md:w-auto">
-                    <a href="add.php" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
-                        <i class="fas fa-plus-circle mr-2"></i> Add
-                    </a>
-                    <input type="text" class="px-4 py-2 w-full md:w-96 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search...">
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">Search</button>
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <form method="get" class="d-flex mb-2">
+                    <input type="text" name="search" class="form-control me-2" placeholder="Search by PR Number or Purpose">">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <form method="get" class="d-flex mb-2">
+                    <select name="status" class="form-select me-2" onchange="this.form.submit()">
+                        <option value="">All Statuses</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-primary">Filter</button>
+                </form>
+
+                <div>
+                    <?php if ($ppmp_count > 0): ?>
+                        <a href="create_pr.php" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Purchase Request
+                        </a>
+                    <?php else: ?>
+                        <button class="btn btn-primary" disabled>
+                            <i class="fas fa-plus"></i> Wait for PPMP Approval.
+                        </button>
+                    <?php endif; ?>
                 </div>
+
+
             </div>
 
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full border-collapse">
-                    <thead class="bg-gray-200 text-gray-700">
-                        <tr class="border-b border-gray-300">
-                            <th class="border p-3 text-left">PR No.</th>
-                            <th class="border p-3 text-left">Purpose</th>
-                            <th class="border p-3 text-left">Approver</th>
-                            <th class="border p-3 text-left">Date Submitted</th>
-                            <th class="border p-3 text-left">Status</th>
-                            <th class="border p-3 text-left">PR Process</th>
-                            <th class="border p-3 text-left">Action</th>
+            <div class="table-responsive mt-4">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>PR Number</th>
+                            <th>Purpose</th>
+                            <th>Approver</th>
+                            <th>Submitted Date</th>
+                            <th>Status</th>
+                            <th>PR Process</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="even:bg-gray-50 hover:bg-gray-200 transition-colors duration-200 border-b border-gray-300">
-                            <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>
-                            <td class="border p-3">Lorem</td>
-                            <td class="border p-3"></td>
-                            <td class="border p-3 text-center space-x-3">
-                                <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-download"></i></button>
-                                <button class="text-blue-500 hover:text-blue-600"><i class="bi bi-eye-fill"></i></button>
-                                <button class="text-blue-500 hover:text-blue-600"><i class="fas fa-edit"></i></button>
-                                <button class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <a href="download_pr.php?pr_number=" class="btn btn-outline-primary btn-sm" title="Download PR"><i class="fas fa-download"></i></a>
+                                    <a href="view_pr.php?pr_number=" class="btn btn-outline-info btn-sm" title="View PR"><i class="fas fa-eye"></i></a>
+                                    <a href="update_pr.php?pr_number=" class="btn btn-outline-warning btn-sm" title="Update PR"><i class="fas fa-edit"></i></a>
+                                    <button class="btn btn-outline-danger btn-sm" title="Delete PR" onclick="confirmDelete('')"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
                     </tbody>
                 </table>
-            </div>
 
-            <div class="flex justify-center mt-6">
-                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
-                    <i class="fas fa-save"></i> Save
-                </button>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmDelete(prNumber) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send AJAX request to delete the PR
+                    fetch('src/process/delete_pr.php?pr_number=' + prNumber)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Check if the deletion was successful
+                            if (data.status === 'success') {
+                                // Show success message
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: data.message,
+                                    icon: 'success'
+                                }).then(() => {
+                                    // Reload the page or redirect
+                                    window.location.href = 'pr.php'; // Modify this URL if necessary
+                                });
+                            } else {
+                                // Show error message
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: data.message,
+                                    icon: 'error'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            // Handle fetch error
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Something went wrong. Please try again later.',
+                                icon: 'error'
+                            });
+                        });
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>
