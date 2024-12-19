@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+require_once '../admin/src/config/pdo.php';
+
+$pr_number = isset($_GET['pr_number']) ? htmlspecialchars($_GET['pr_number']) : 'N/A';
+$status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'N/A';
+
+$query = "
+    SELECT 
+        purchase_requests.pr_number, 
+        purchase_requests.status, 
+        purchase_requests.submitted_date,
+        ppmp_list.project_title, 
+        ppmp_form.code, 
+        ppmp_form.estimated_budget 
+    FROM purchase_requests
+    JOIN ppmp_list ON purchase_requests.ppmp_id = ppmp_list.ppmp_id
+    JOIN ppmp_form ON ppmp_list.ppmp_id = ppmp_form.ppmp_id
+    WHERE purchase_requests.pr_number = ?
+";
+
+$stmt = $pdo->prepare($query);
+$stmt->execute([$pr_number]);
+$prDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,6 +106,7 @@
 
 <body>
     <div class="d-flex">
+        <?php include 'sidebar.php'; ?>
 
         <div class="content flex-grow-1 animate__animated animate__fadeIn">
             <div class="container">
@@ -86,13 +119,39 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="header-card">Purchase Request Details</h5>
-                                        <p><strong>PR Number:</strong></p>
+                                        <p><strong>PR Number:</strong> <?php echo $prDetails['pr_number']; ?></p>
                                         <p>
                                             <strong>Status:</strong>
+                                            <?php
+                                            $statusClass = match ($status) {
+                                                'Pending' => 'bg-warning',
+                                                'Approved' => 'bg-success',
+                                                'Rejected' => 'bg-danger',
+                                                default => 'bg-secondary'
+                                            };
+                                            echo "<span class='badge $statusClass'>$status</span>";
+                                            ?>
                                         </p>
-                                        <p><strong>Submitted Date:</strong></p>
+                                        <p><strong>Submitted Date:</strong> <?php echo date('F j, Y, g:i A', strtotime($prDetails['submitted_date'])); ?></p>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <?php if ($prDetails): ?>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="header-card">PPMP Project Information</h5>
+                                            <p><strong>Project Title:</strong> <?php echo htmlspecialchars($prDetails['project_title']); ?></p>
+                                            <p><strong>Code: </strong><span class="badge text-bg-primary"><?php echo htmlspecialchars($prDetails['code']); ?></span></p>
+                                            <p><strong>Estimated Budget:</strong> ₱ <?php echo number_format($prDetails['estimated_budget'], 2); ?></p>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="alert alert-warning mt-2">
+                                        No PPMP project details found for this PR number.
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
