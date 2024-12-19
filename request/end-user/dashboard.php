@@ -4,79 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Analytics Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>End User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="src/css/dashboard.css">
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body>
+    <div class="d-flex">
+        <?php include 'sidebar.php'; ?>
 
-    <div class="flex h-screen overflow-hidden">
-        <?php include 'partials/sidebar.php'; ?>
+        <div class="content flex-grow-1 animate__animated animate__fadeIn">
+            <div class="header-card">
+                <h1 class="mb-2">Welcome!</h1>
+                <p class="mb-0">Here’s a quick overview of your activities and requests.</p>
+            </div>
 
-        <main class="flex-1 p-6 overflow-x-hidden space-y-8">
-            <header>
-                <h1 class="text-3xl font-semibold text-gray-800">Data Analytics Overview</h1>
-                <p class="text-gray-600">Insights into user trends, revenue, and more.</p>
-            </header>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-                <div class="p-6 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-lg text-white">
-                    <p class="text-sm font-medium text-indigo-100">Purchase Request</p>
-                    <h2 class="text-2xl font-bold">21</h2>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Requests</h5>
+                            <p class="card-text text-info"> total requests made.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="p-6 bg-gradient-to-r from-green-500 to-green-700 rounded-lg shadow-lg text-white">
-                    <p class="text-sm font-medium text-green-100">Approved</p>
-                    <h2 class="text-2xl font-bold">11</h2>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Approved</h5>
+                            <p class="card-text text-success"> requests have been approved.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="p-6 bg-gradient-to-r from-red-500 to-red-700 rounded-lg shadow-lg text-white">
-                    <p class="text-sm font-medium text-red-100">Rejected</p>
-                    <h2 class="text-2xl font-bold">10</h2>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Rejected</h5>
+                            <p class="card-text text-danger">requests were declined.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <h3 class="text-lg font-semibold text-gray-700">Revenue Over Time</h3>
-                    <canvas id="revenueChart" class="mt-4 h-48 sm:h-64 md:h-72 bg-gray-200 rounded-lg"></canvas>
+            <div class="row g-3 mt-4">
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Monthly Requests Overview</h5>
+                            <div class="chart-container">
+                                <canvas id="monthlyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <?php include './partials/calendar.php' ?>
+                <div class="col-md-6">
+                    <div class="calendar-container">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
             </div>
-        </main>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
+
     <script>
-        const revenueChart = new Chart(document.getElementById('revenueChart').getContext('2d'), {
+        const ctx = document.getElementById('monthlyChart').getContext('2d');
+        const monthlyChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                labels: ,
                 datasets: [{
-                    label: 'Analytics',
-                    data: [1200, 1500, 1800, 1300, 1700, 2000, 4000, 1000, 200, 1500, 4000, 1000],
-                    borderColor: '#4F46E5',
-                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    label: 'Requests',
+                    data: ,
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
                     fill: true,
-                    tension: 0.3
                 }]
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'Requests: ' + tooltipItem.raw;
+                            }
+                        }
                     }
+                },
+            },
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: ,
+                eventClick: function(info) {
+                    alert('Event: ' + info.event.title + '\n' + 'Description: ' + info.event.extendedProps.description);
                 }
-            }
+            });
+            calendar.render();
         });
     </script>
-
 </body>
 
 </html>

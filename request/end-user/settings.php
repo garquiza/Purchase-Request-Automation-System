@@ -5,143 +5,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Settings</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #0056b3, #004085);
+        }
+
+        .success-alert,
+        .error-alert {
+            display: none;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <div class="flex h-screen">
+<body>
+    <div class="d-flex">
+        <?php include 'sidebar.php'; ?>
 
-        <?php include './partials/sidebar.php'; ?>
-
-        <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            <h1 class="text-3xl font-semibold text-gray-800 mb-6">User Settings</h1>
-
-            <div class="bg-white shadow-md rounded-lg p-6 space-y-6">
-                <div>
-                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Profile Information</h2>
-                    <form action="#" method="POST">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                                <input type="text" id="first_name" name="first_name" value="John"
-                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" value="Doe"
-                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                            <input type="email" id="email" name="email" value="johndoe@example.com"
-                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="text" class="block text-sm font-medium text-gray-700">COS</label>
-                            <input type="text" id="email" name="cos" value="johndoe@example.com"
-                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-
-                        <div class="mt-4">
-                            <button type="submit"
-                                class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Update
-                                Profile</button>
-                        </div>
-                    </form>
+        <div class="content flex-grow-1 animate__animated animate__fadeIn">
+            <div class="container">
+                <div class="header-card">
+                <h2 class="text-center mb-4">User Settings</h2>
+                </div>
+                <div class="alert alert-success success-alert" id="success-alert" role="alert">
+                    <i class="fas fa-check-circle"></i> Settings updated successfully!
+                </div>
+                <div class="alert alert-danger error-alert" id="error-alert" role="alert">
+                    <i class="fas fa-exclamation-circle"></i> Something went wrong. Please try again.
                 </div>
 
-                <div>
-                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Change Password</h2>
-                    <form action="#" method="POST">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="current_password" class="block text-sm font-medium text-gray-700">Current
-                                    Password</label>
-                                <input type="password" id="current_password" name="current_password"
-                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-user-cog me-2"></i> Account Details
                             </div>
-                            <div>
-                                <label for="new_password" class="block text-sm font-medium text-gray-700">New Password</label>
-                                <input type="password" id="new_password" name="new_password"
-                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <div class="card-body">
+                                <form id="settings-form" action="update_settings.php" method="POST">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="first_name" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="first_name" name="first_name" value="" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="last_name" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="••••••••">
+                                        <small class="text-muted">Leave blank to keep your current password.</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Account Status</label>
+                                        <select class="form-select" id="status" name="status">
+                                            <option value="activate" >Activate</option>
+                                            <option value="disabled">Disabled</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" >
+                                        <label class="form-check-label" for="remember_me">Remember Me</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <div class="mt-4">
-                            <label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm New
-                                Password</label>
-                            <input type="password" id="confirm_password" name="confirm_password"
-                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-
-                        <div class="mt-4">
-                            <button type="submit"
-                                class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Change
-                                Password</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div>
-                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Signature</h2>
-                    <p class="text-sm text-gray-500 mb-4">Please provide your signature below:</p>
-
-                    <div class="relative w-full mb-4">
-                        <canvas id="signature-pad" class="border border-gray-300 w-full h-48 rounded-md"></canvas>
                     </div>
-
-                    <div class="flex justify-between">
-                        <button id="clear"
-                            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none">Clear</button>
-
-                        <button id="save"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none">Save
-                            Signature</button>
-                    </div>
-
-                    <input type="hidden" id="signature-data" name="signature_data">
                 </div>
-
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const canvas = document.getElementById('signature-pad');
-        const signaturePad = new SignaturePad(canvas);
-
-        function resizeCanvas() {
-            const ratio = window.devicePixelRatio || 1;
-            const width = canvas.offsetWidth * ratio;
-            const height = canvas.offsetHeight * ratio;
-
-            canvas.width = width;
-            canvas.height = height;
-            signaturePad.clear();
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        document.getElementById('clear').addEventListener('click', function() {
-            signaturePad.clear();
-        });
-
-        document.getElementById('save').addEventListener('click', function() {
-            if (!signaturePad.isEmpty()) {
-                const dataUrl = signaturePad.toDataURL();
-                document.getElementById('signature-data').value = dataUrl;
-                alert('Signature saved!');
-            } else {
-                alert('Please provide a signature!');
-            }
-        });
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
     </script>
-
 </body>
 
 </html>
