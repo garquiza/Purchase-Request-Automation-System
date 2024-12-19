@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+require_once '../admin/src/config/database.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,6 +70,7 @@
 
         <div class="content flex-grow-1 p-4 animate__animated animate__fadeInUp">
             <h2 class="mb-3">Notifications</h2>
+            <p>Welcome, <strong><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?></strong></p>
 
             <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
                 <div class="col">

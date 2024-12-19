@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+require_once '../admin/src/config/database.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +57,7 @@
 
         <div class="content flex-grow-1 p-4 animate__animated animate__fadeInUp">
             <h2 class="mb-3">Dashboard</h2>
-            <p>Welcome,</p>
+            <p>Welcome, <strong><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?></strong></p>
 
             <div class="row row-cols-2 row-cols-md-4 g-3">
                 <div class="col">
@@ -59,7 +70,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="col">
                     <a href="total_savings.php" class="text-decoration-none">
                         <div class="card text-center border-0 shadow-sm">
@@ -79,7 +89,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col">
                     <div class="card text-center border-0 shadow-sm">
                         <div class="card-body">
@@ -88,7 +97,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col">
                     <div class="card text-center border-0 shadow-sm">
                         <div class="card-body">
@@ -131,7 +139,6 @@
                 </div>
             </div>
 
-
             <div class="card mt-4">
                 <div class="card-body">
                     <h5 class="card-title">Monthly Statistics</h5>
@@ -144,7 +151,7 @@
     </div>
 
     <div class="modal fade" id="totalBudgetCostModal" tabindex="-1" aria-labelledby="totalBudgetCostModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg"> 
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="totalBudgetCostModalLabel">Total Budget Cost</h5>
@@ -313,7 +320,7 @@
 
                 updateTotalBudget();
             } else {
-                Swal.fire('Error', 'Please fill in all fields.', 'error'); 
+                Swal.fire('Error', 'Please fill in all fields.', 'error');
             }
         });
     </script>
