@@ -159,8 +159,7 @@ $approvedPRs = $prQuery->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="d-flex justify-content-end my-4">
-                    <button type="button" id="saveButton" class="btn btn-success me-2">Save</button>
-                    <button type="submit" name="proceed" class="btn btn-primary">Proceed</button>
+                    <button type="button" id="saveButton" class="btn btn-success me-2"><i class="fas fa-save"></i> Save and Proceed</button>
                 </div>
             </form>
         </div>
