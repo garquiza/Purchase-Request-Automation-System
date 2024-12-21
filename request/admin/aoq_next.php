@@ -28,6 +28,7 @@ if ($result_aoq->num_rows > 0) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="src/css/pr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .content {
             margin-left: 250px;
@@ -101,7 +102,7 @@ if ($result_aoq->num_rows > 0) {
                             <td><input type="number" class="form-control" name="bidders_quantity[]" required></td>
                             <td><input type="number" class="form-control" name="unit_price[]" required></td>
                             <td><input type="number" class="form-control" name="total_price[]" readonly></td>
-                            <td><button type="button" class="btn btn-danger remove-bidder">Remove</button></td>
+                            <td><button type="button" class="btn btn-danger remove-bidder">Remove</button> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -114,6 +115,7 @@ if ($result_aoq->num_rows > 0) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('#load-aoq').on('click', function() {
@@ -153,10 +155,105 @@ if ($result_aoq->num_rows > 0) {
 
             $('#submit-form').on('click', function(e) {
                 e.preventDefault();
-                alert('Form submitted!');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to submit the AOQ specifications?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, submit it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const formData = $('#aoq-selection-form').serializeArray();
+                        formData.push({
+                            name: 'aoq',
+                            value: $('#aoq').val()
+                        }); 
+                        $('#specifications-table tbody tr').each(function() {
+                            const specification = $(this).find('input[name="specification[]"]').val();
+                            const quantity = $(this).find('input[name="quantity[]"]').val();
+                            const unit = $(this).find('input[name="unit[]"]').val();
+                            formData.push({
+                                name: 'specification[]',
+                                value: specification
+                            });
+                            formData.push({
+                                name: 'quantity[]',
+                                value: quantity
+                            });
+                            formData.push({
+                                name: 'unit[]',
+                                value: unit
+                            });
+                        });
+                        $('#bidders-table tbody tr').each(function() {
+                            const companyName = $(this).find('input[name="company_name[]"]').val();
+                            const biddersSpecification = $(this).find('input[name="bidders_specification[]"]').val();
+                            const biddersQuantity = $(this).find('input[name="bidders_quantity[]"]').val();
+                            const unitPrice = $(this).find('input[name="unit_price[]"]').val();
+                            const totalPrice = $(this).find('input[name="total_price[]"]').val();
+                            formData.push({
+                                name: 'company_name[]',
+                                value: companyName
+                            });
+                            formData.push({
+                                name: 'bidders_specification[]',
+                                value: biddersSpecification
+                            });
+                            formData.push({
+                                name: 'bidders_quantity[]',
+                                value: biddersQuantity
+                            });
+                            formData.push({
+                                name: 'unit_price[]',
+                                value: unitPrice
+                            });
+                            formData.push({
+                                name: 'total_price[]',
+                                value: totalPrice
+                            });
+                        });
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'src/process/add_aoq_specification.php',
+                            data: formData,
+                            success: function(response) {
+                                Swal.fire({
+                                    title: 'Submitted!',
+                                    text: 'Your AOQ specifications have been submitted successfully.',
+                                    icon: 'success',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Proceed to RESO',
+                                    cancelButtonText: 'Download'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = 'reso.php';
+                                    } else {
+                                        window.location.href = 'src/process/download_aoq.php'; 
+                                    }
+                                });
+
+                                $('#aoq-selection-form')[0].reset();
+                                $('#specifications-section').hide();
+                                $('#bidders-section').hide();
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire(
+                                    'Error!',
+                                    'There was an error submitting your AOQ specifications. Please try again.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>
 </body>
-
 </html>
