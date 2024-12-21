@@ -165,12 +165,12 @@ $total_pages = ceil($total_rows / $limit);
                                     <a href="download_pr.php?pr_id=<?php echo $row['pr_id']; ?>" class="btn btn-outline-success btn-sm" title="Download PR">
                                         <i class="fas fa-download"></i>
                                     </a>
-                                    <a href="update_pr.php?pr_id=<?php echo $row['pr_id']; ?>" class="btn btn-outline-warning btn-sm" title="Update PR">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
                                     <button class="btn btn-outline-info btn-sm" title="Print PR" onclick="printPR('<?php echo $row['pr_id']; ?>')">
                                         <i class="fas fa-print"></i>
                                     </button>
+                                    <a href="update_pr.php?pr_id=<?php echo $row['pr_id']; ?>" class="btn btn-outline-warning btn-sm" title="Update PR">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     <button class="btn btn-outline-danger btn-sm" title="Delete PR" onclick="confirmDelete('<?php echo $row['pr_id']; ?>')">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
@@ -214,7 +214,37 @@ $total_pages = ceil($total_rows / $limit);
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = 'delete_pr.php?pr_id=' + pr_id;
+                    fetch(`src/process/delete_pr.php?pr_id=${pr_id}`)
+                        .then(response => response.json()) 
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: data.message || 'The PR has been deleted successfully.',
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: data.message || 'An error occurred while deleting the PR.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Something went wrong. Please try again later.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                            console.error('Delete Error:', error);
+                        });
                 }
             });
         }
