@@ -149,9 +149,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                 </li>
                 <li class="<?= $current_page === 'notifications.php' ? 'active' : '' ?>">
-                    <a href="notifications.php"><i class="fa-solid fa-envelope"></i> Notification <span class="badge text-bg-danger ms-auto">0</span></a>
+                    <a href="notifications.php">
+                        <i class="fa-solid fa-envelope"></i> Notification
+                    </a>
                 </li>
-                <li class="dropdown <?= in_array($current_page, ['app.php', 'ppmp_list.php', 'pr.php', 'pp.php', 'pmf.php', 'rfq.php', 'aoq.php', 'reso.php', 'noa.php', 'ntp.php', 'po.php', 'pmr.php']) ? 'active' : '' ?>">
+                <li class="dropdown <?= in_array($current_page, ['app.php', 'ppmp_list.php', 'pr.php', 'pp.php', 'pmf.php', 'po_next.php', 'aoq_next.php', 'rfq.php', 'aoq.php', 'reso.php', 'noa.php', 'ntp.php', 'po.php', 'pmr.php']) ? 'active' : '' ?>">
                     <a href="#"><i class="fas fa-box"></i> Procurement <i class="fas fa-chevron-down ms-auto"></i></a>
                     <ul>
                         <li><a href="app.php" class="<?= $current_page === 'app.php' ? 'active' : '' ?>"><i class="fas fa-file-alt"></i> APP</a></li>
@@ -167,7 +169,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <li><a href="pmr.php" class="<?= $current_page === 'pmr.php' ? 'active' : '' ?>"><i class="fas fa-chart-line"></i> PMR</a></li>
                     </ul>
                 </li>
-                <li class="dropdown <?= in_array($current_page, ['create_user.php', 'user_management.php']) ? 'active' : '' ?>">
+                <li class="dropdown <?= in_array($current_page, ['create_user.php', 'user_management.php','create_end_user.php','create_bac_user.php','create_budget_user.php','manage_end_user.php','manage_bac_user.php', 'manage_budget_user.php']) ? 'active' : '' ?>">
                     <a href="#"><i class="fas fa-user"></i> User <i class="fas fa-chevron-down ms-auto"></i></a>
                     <ul>
                         <li><a href="create_user.php" class="<?= $current_page === 'create_user.php' ? 'active' : '' ?>"><i class="fas fa-user-plus"></i> Create User</a></li>
