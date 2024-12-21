@@ -14,6 +14,10 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Error fetching data: " . mysqli_error($conn));
 }
+
+if (mysqli_num_rows($result) == 0) {
+    echo "<p>No PPMP entries found.</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -97,10 +101,10 @@ if (!$result) {
                                     <a href="../admin/download_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-primary btn-sm" title="Download PPMP" style="margin-right: 5px;">
                                         <i class="fas fa-download"></i>
                                     </a>
-                                    <a href="../admin/view_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-info btn-sm" title="View PPMP" style="margin-right: 5px;">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="../admin/update_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-warning btn-sm" title="Update PPMP" style="margin-right: 5px;">
+                                    <button class="btn btn-outline-info btn-sm" title="Print PPMP" style="margin-right: 5px;" onclick="printPPMP('<?php echo $row['ppmp_id']; ?>')">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                    <a href="../admin/edit_ppmp.php?ppmp_id=<?php echo $row['ppmp_id']; ?>" class="btn btn-outline-warning btn-sm" title="Update PPMP" style="margin-right: 5px;">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="btn btn-outline-danger btn-sm" title="Delete PPMP" onclick="confirmDelete('<?php echo $row['ppmp_id']; ?>')">
