@@ -2,12 +2,6 @@ body {
     background-color: #f4f6f9;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 30px 15px;
-}
-
 .header-card {
     background: linear-gradient(90deg, #007bff, #4bacef);
     color: white;
