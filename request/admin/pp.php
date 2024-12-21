@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-require_once '../admin/src/config/pdo.php';
+require_once '../bac/src/config/pdo.php';
 
 $pr_number = isset($_GET['pr_number']) ? htmlspecialchars($_GET['pr_number']) : 'N/A';
 $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'N/A';
@@ -41,6 +41,7 @@ $prDetails = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="src/css/pr.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -158,37 +159,37 @@ $prDetails = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     <div class="process-container">
                         <a href="app.php" class="btn btn-link">
-                            <button class="process-btn active">APP</button>
+                            <button class="process-btn active" onclick="checkPermission('APP', 'app.php')">APP</button>
                         </a>
                         <a href="ppmp_list.php" class="btn btn-link">
-                            <button class="process-btn">PPMP</button>
+                            <button class="process-btn" onclick="checkPermission('PPMP', 'ppmp_list.php')">PPMP</button>
                         </a>
                         <a href="pr.php" class="btn btn-link">
-                            <button class="process-btn">PR</button>
+                            <button class="process-btn" onclick="checkPermission('PR', 'pr.php')">PR</button>
                         </a>
                         <a href="pmf.php" class="btn btn-link">
-                            <button class="process-btn">PMAF</button>
+                            <button class="process-btn" onclick="checkPermission('PMAF', 'pmf.php')">PMAF</button>
                         </a>
                         <a href="rfq.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>RFQ</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">RFQ</button>
                         </a>
                         <a href="aoq.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>AOQ</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">AOQ</button>
                         </a>
                         <a href="reso.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>RESO</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">RESO</button>
                         </a>
                         <a href="noa.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>NOA</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">NOA</button>
                         </a>
                         <a href="ntp.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>NTP</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">NTP</button>
                         </a>
                         <a href="po.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>PO</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">PO</button>
                         </a>
                         <a href="pmr.php" class="btn btn-link">
-                            <button class="process-btn disabled" disabled>PMR</button>
+                            <button class="process-btn disabled" disabled onclick="showError()">PMR</button>
                         </a>
                     </div>
                 </div>
@@ -197,6 +198,26 @@ $prDetails = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const userPermissions = <?php echo json_encode($permissions); ?>; 
+
+        function checkPermission(permission, url) {
+            if (userPermissions.includes(permission)) {
+                window.location.href = url; 
+            } else {
+                showError(); 
+            }
+        }
+
+        function showError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Access Denied',
+                text: "You don't have permission to access this page.",
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
 </body>
 
 </html>
