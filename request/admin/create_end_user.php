@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -15,7 +16,7 @@ require_once '../admin/src/config/database.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Budget User</title>
+    <title>Create End User</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="src/css/user.css">
@@ -24,51 +25,61 @@ require_once '../admin/src/config/database.php';
 
 <body>
     <?php include 'sidebar.php'; ?>
+
     <div class="content animate__animated animate__fadeIn">
         <div class="container">
-            <div class="header-card">
-                <h1 class="text-center mb-4">Create Budget User</h1>
+            <div class="card shadow-lg p-4">
+                <h1 class="header-card mb-4">Create End User</h1>
+
+                <?php if (isset($error)): ?>
+                    <div class="alert alert-danger"><?= $error ?></div>
+                <?php endif; ?>
+
+                <form id="create-user-form" action="create_end_user.php" method="POST" novalidate>
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" required>
+                        <div class="invalid-feedback">Please provide a first name.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" required>
+                        <div class="invalid-feedback">Please provide a last name.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address" required>
+                        <div class="invalid-feedback">Please provide a valid email address.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required minlength="6">
+                        <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Create End User</button>
+                </form>
             </div>
-
-            <form id="create-budget-user-form" method="POST">
-                <div class="mb-3">
-                    <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Create Budget User</button>
-            </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('create-budget-user-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        
+        document.getElementById('create-user-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
 
             if (!this.checkValidity()) {
                 this.classList.add('was-validated');
-                return;
+                return; 
             }
 
             const formData = new FormData(this);
 
-            fetch('src/process/add_budget_user.php', {
+            fetch('src/process/add_end_user.php', {
                     method: 'POST',
                     body: formData,
                 })
@@ -77,7 +88,7 @@ require_once '../admin/src/config/database.php';
                     if (data.success) {
                         Swal.fire({
                             title: 'Success!',
-                            text: data.message,
+                            text: 'End user created successfully!',
                             icon: 'success',
                             showCancelButton: true,
                             confirmButtonText: 'Go to User List',
@@ -86,13 +97,13 @@ require_once '../admin/src/config/database.php';
                             if (result.isConfirmed) {
                                 window.location.href = 'user_management.php';
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                window.location.href = 'create_user.php';
+                                window.location.href = 'create_end_user.php';
                             }
                         });
                     } else {
                         Swal.fire({
                             title: 'Error!',
-                            text: data.message || 'There was an error creating the user.',
+                            text: data.message || 'Failed to create the user.',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -101,7 +112,7 @@ require_once '../admin/src/config/database.php';
                 .catch(error => {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'There was an unexpected error.',
+                        text: 'Unexpected error occurred.',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
