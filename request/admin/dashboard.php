@@ -1,12 +1,54 @@
 <?php
+
 session_start();
+
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
-require_once '../admin/src/config/database.php';
+require_once '../admin/src/config/pdo.php'; 
+
+$totalRequests = 0;
+$totalApproved = 0;
+$totalRejected = 0;
+$totalPending = 0;
+
+$query = "SELECT status, COUNT(*) as count FROM purchase_requests GROUP BY status";
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($results as $row) {
+    switch ($row['status']) {
+        case 'Approved':
+            $totalApproved = $row['count'];
+            break;
+        case 'Rejected':
+            $totalRejected = $row['count'];
+            break;
+        case 'Pending':
+            $totalPending = $row['count'];
+            break;
+    }
+}
+
+$totalRequests = $totalApproved + $totalRejected + $totalPending;
+
+$monthlyRequests = [];
+$query = "SELECT MONTH(submitted_date) as month, COUNT(*) as count FROM purchase_requests GROUP BY MONTH(submitted_date)";
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+$monthlyResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+for ($i = 1; $i <= 12; $i++) {
+    $monthlyRequests[$i] = 0; 
+}
+
+foreach ($monthlyResults as $row) {
+    $monthlyRequests[$row['month']] = $row['count'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +95,7 @@ require_once '../admin/src/config/database.php';
 
 <body>
     <div class="d-flex">
+        
         <?php include 'sidebar.php'; ?>
 
         <div class="content flex-grow-1 p-4 animate__animated animate__fadeInUp">
@@ -60,6 +103,7 @@ require_once '../admin/src/config/database.php';
             <p>Welcome, <strong><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?></strong></p>
 
             <div class="row row-cols-2 row-cols-md-4 g-3">
+              
                 <div class="col">
                     <a href="total_budget_cost.php" class="text-decoration-none">
                         <div class="card text-center border-0 shadow-sm">
@@ -70,6 +114,7 @@ require_once '../admin/src/config/database.php';
                         </div>
                     </a>
                 </div>
+
                 <div class="col">
                     <a href="total_savings.php" class="text-decoration-none">
                         <div class="card text-center border-0 shadow-sm">
@@ -82,26 +127,39 @@ require_once '../admin/src/config/database.php';
                 </div>
 
                 <div class="col">
-                    <div class="card text-center border-0 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">##</h5>
-                            <p class="card-text">Purchase Request</p>
+                    <a href="pr.php" class="text-decoration-none">
+                        <div class="card text-center border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $totalRequests; ?></h5>
+                                <p class="card-text">Total Purchase Requests</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
+
                 <div class="col">
                     <div class="card text-center border-0 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">##</h5>
+                            <h5 class="card-title"><?php echo $totalApproved; ?></h5>
                             <p class="card-text">Approved</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="col">
                     <div class="card text-center border-0 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">##</h5>
+                            <h5 class="card-title"><?php echo $totalRejected; ?></h5>
                             <p class="card-text">Rejected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $totalPending; ?></h5>
+                            <p class="card-text">Pending</p>
                         </div>
                     </div>
                 </div>
@@ -150,103 +208,6 @@ require_once '../admin/src/config/database.php';
         </div>
     </div>
 
-    <div class="modal fade" id="totalBudgetCostModal" tabindex="-1" aria-labelledby="totalBudgetCostModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="totalBudgetCostModalLabel">Total Budget Cost</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center mb-4" id="totalBudgetTitle">Total Budget: PHP 0.00</h4>
-
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Sector</th>
-                                <th>Planned Budget</th>
-                                <th>Actual Budget</th>
-                                <th>Variance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="budgetTableBody">
-                            <tr>
-                                <td>Construction</td>
-                                <td class="planned-budget">50,000</td>
-                                <td>45,000</td>
-                                <td>-5,000</td>
-                            </tr>
-                            <tr>
-                                <td>Electrical</td>
-                                <td class="planned-budget">20,000</td>
-                                <td>18,000</td>
-                                <td>-2,000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSectorModal">
-                        Add New Sector
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="addSectorModal" tabindex="-1" aria-labelledby="addSectorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addSectorModalLabel">Add New Sector</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addSectorForm">
-                        <div class="mb-3">
-                            <label for="sectorName" class="form-label">Sector Name</label>
-                            <input type="text" class="form-control" id="sectorName" placeholder="Enter sector name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="plannedBudget" class="form-label">Planned Budget</label>
-                            <input type="number" class="form-control" id="plannedBudget" placeholder="Enter planned budget" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="actualBudget" class="form-label">Actual Budget</label>
-                            <input type="number" class="form-control" id="actualBudget" placeholder="Enter actual budget" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="saveSectorButton">Save Sector</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="totalSavingsModal" tabindex="-1" aria-labelledby="totalSavingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="totalSavingsModalLabel">Total Savings Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Here you can display the breakdown of the Total Savings or any other relevant details.</p>
-                    <ul>
-                        <li>Savings from Discounts: PHP 10,000</li>
-                        <li>Project Efficiency Savings: PHP 5,000</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -257,7 +218,7 @@ require_once '../admin/src/config/database.php';
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [{
                     label: 'Requests',
-                    data: [10, 20, 15, 30, 25, 40, 35, 30, 20, 25, 15, 10],
+                    data: [<?php echo implode(',', $monthlyRequests); ?>], 
                     borderColor: '#0d6efd',
                     backgroundColor: 'rgba(13, 110, 253, 0.1)',
                     fill: true,
@@ -320,7 +281,7 @@ require_once '../admin/src/config/database.php';
 
                 updateTotalBudget();
             } else {
-                Swal.fire('Error', 'Please fill in all fields.', 'error');
+                Swal.fire('Error', 'Please fill in all fields.', 'error'); 
             }
         });
     </script>
